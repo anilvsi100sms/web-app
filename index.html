@@ -47,6 +47,11 @@ button{background:#1a237e;color:white;border:none;padding:10px 20px;border-radiu
 .whatsapp-btn{bottom:20px;background:#25D366}
 
 iframe{width:100%;height:300px;border:0;margin-top:20px}
+
+/* Lightbox Gallery */
+.lightbox{display:none;position:fixed;z-index:1000;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);justify-content:center;align-items:center}
+.lightbox img{max-width:90%;max-height:90%;border-radius:10px}
+.lightbox span{position:absolute;top:20px;right:30px;color:white;font-size:35px;cursor:pointer}
 </style>
 </head>
 
@@ -99,7 +104,12 @@ iframe{width:100%;height:300px;border:0;margin-top:20px}
 
 <!-- SERVICES -->
 <section id="services" class="services reveal">
-<div class="card"><h3>Lathe Machine Work</h3></div>
+<div class="card">
+<h3>Lathe Machine Work</h3>
+<img src="images/lathe1.jpg" class="lightbox-img" style="width:100%;border-radius:10px;margin-top:10px;cursor:pointer;">
+<img src="images/lathe2.jpg" class="lightbox-img" style="width:100%;border-radius:10px;margin-top:10px;cursor:pointer;">
+<p>High precision turning, threading, and machining services using advanced lathe machines.</p>
+</div>
 <div class="card"><h3>Welding & Fabrication</h3></div>
 <div class="card"><h3>Machine Repair</h3></div>
 <div class="card"><h3>Custom Engineering Work</h3></div>
@@ -128,6 +138,12 @@ iframe{width:100%;height:300px;border:0;margin-top:20px}
 </section>
 
 <footer>© 2026 Shivendra Engineering Workshop</footer>
+
+<!-- Lightbox Modal -->
+<div class="lightbox" id="lightbox">
+<span onclick="closeLightbox()">&times;</span>
+<img id="lightbox-img">
+</div>
 
 <a href="tel:7880359817" class="float-btn call-btn">Call</a>
 <a href="https://wa.me/917880359817" class="float-btn whatsapp-btn">WhatsApp</a>
@@ -173,6 +189,41 @@ let phone=document.getElementById('phone').value;
 let msg=document.getElementById('msg').value;
 let url=`https://wa.me/917880359817?text=Name:${name}%0APhone:${phone}%0AWork:${msg}`;
 window.open(url,'_blank');
+}
+
+
+
+/* Lightbox Script with Auto Slideshow */
+const lightbox=document.getElementById('lightbox');
+const lightboxImg=document.getElementById('lightbox-img');
+const galleryImages=[...document.querySelectorAll('.lightbox-img')];
+let currentIndex=0;
+let slideshowInterval;
+
+function openLightbox(index){
+currentIndex=index;
+lightbox.style.display='flex';
+lightboxImg.src=galleryImages[currentIndex].src;
+startSlideshow();
+}
+
+/* Click event */
+galleryImages.forEach((img,index)=>{
+img.addEventListener('click',()=>{
+openLightbox(index);
+});
+});
+
+function startSlideshow(){
+slideshowInterval=setInterval(()=>{
+currentIndex=(currentIndex+1)%galleryImages.length;
+lightboxImg.src=galleryImages[currentIndex].src;
+},2500);
+}
+
+function closeLightbox(){
+lightbox.style.display='none';
+clearInterval(slideshowInterval);
 }
 
 </script>
