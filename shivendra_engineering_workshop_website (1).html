@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shivendra Engineering Workshop</title>
+<meta name="description" content="Shivendra Engineering Workshop - Lathe, Welding, Fabrication, Machine Repair and Custom Engineering Work">
+
+<style>
+body{margin:0;font-family:Arial,sans-serif;scroll-behavior:smooth}
+header{background:#1a237e;color:white;padding:15px;text-align:center}
+nav{background:#3949ab;display:flex;justify-content:center}
+nav a{color:white;padding:14px 20px;text-decoration:none}
+nav a:hover{background:#5c6bc0}
+
+/* HERO VIDEO */
+.hero{position:relative;height:420px;overflow:hidden;color:white;display:flex;align-items:center;justify-content:center;text-align:center}
+.hero video{position:absolute;width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;width:100%;height:100%;background:rgba(0,0,0,.6)}
+.hero-content{position:relative;z-index:2}
+.typing-text{font-size:38px;font-weight:bold}
+
+/* Scroll Animation */
+.reveal{opacity:0;transform:translateY(60px);transition:all 1s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* 3D Service Cards */
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px}
+.card{background:white;padding:20px;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,.2);transform-style:preserve-3d;transition:transform .5s}
+.card:hover{transform:rotateY(10deg) rotateX(10deg) scale(1.05)}
+
+/* Counter Section */
+.counter-section{background:#1a237e;color:white;padding:40px;text-align:center;display:flex;justify-content:space-around}
+.counter{font-size:40px;font-weight:bold}
+
+/* Review Slider */
+.review{display:none;text-align:center;padding:20px}
+.review.active{display:block}
+
+/* Form */
+form input,form textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border-radius:5px}
+button{background:#1a237e;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer}
+
+/* Floating Buttons */
+.float-btn{position:fixed;right:20px;padding:12px 16px;color:white;border-radius:50px;text-decoration:none;font-weight:bold;z-index:999}
+.call-btn{bottom:80px;background:#1a237e}
+.whatsapp-btn{bottom:20px;background:#25D366}
+
+iframe{width:100%;height:300px;border:0;margin-top:20px}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Shivendra Engineering Workshop</h1>
+<p>Quality Engineering & Fabrication Services</p>
+</header>
+
+<nav>
+<a href="#about">About</a>
+<a href="#services">Services</a>
+<a href="#gallery">Gallery</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<!-- VIDEO HERO -->
+<div class="hero">
+<video autoplay muted loop>
+<source src="video/workshop.mp4" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<h1 class="typing-text"></h1>
+<p>Engineering Excellence • Trusted Service</p>
+</div>
+</div>
+
+<section id="about" class="reveal" style="padding:20px">
+<h2>About Us</h2>
+<p>High-quality machining, fabrication, welding & repair services.</p>
+</section>
+
+<!-- COUNTERS -->
+<section class="counter-section">
+<div>
+<div class="counter" data-target="12">0</div>
+<p>Years Experience</p>
+</div>
+<div>
+<div class="counter" data-target="450">0</div>
+<p>Projects</p>
+</div>
+<div>
+<div class="counter" data-target="300">0</div>
+<p>Clients</p>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="services reveal">
+<div class="card"><h3>Lathe Machine Work</h3></div>
+<div class="card"><h3>Welding & Fabrication</h3></div>
+<div class="card"><h3>Machine Repair</h3></div>
+<div class="card"><h3>Custom Engineering Work</h3></div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reveal">
+<h2 style="text-align:center">Customer Reviews</h2>
+<div class="review active">"Excellent service and precision work"</div>
+<div class="review">"Highly recommended workshop"</div>
+<div class="review">"Very professional and reliable"</div>
+</section>
+
+<!-- QUOTATION FORM -->
+<section id="contact" style="padding:20px" class="reveal">
+<h2>Get Quotation</h2>
+<form onsubmit="sendWhatsApp(); return false;">
+<input id="name" placeholder="Name" required>
+<input id="phone" placeholder="Phone" required>
+<textarea id="msg" placeholder="Work Details"></textarea>
+<button type="submit">Send Quotation</button>
+</form>
+
+<h3>Location</h3>
+<iframe src="https://maps.google.com/maps?q=robertsganj&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+</section>
+
+<footer>© 2026 Shivendra Engineering Workshop</footer>
+
+<a href="tel:7880359817" class="float-btn call-btn">Call</a>
+<a href="https://wa.me/917880359817" class="float-btn whatsapp-btn">WhatsApp</a>
+
+<script>
+
+/* Typing */
+const text="Precision | Quality | Trust";
+let i=0;
+function typing(){if(i<text.length){document.querySelector('.typing-text').innerHTML+=text[i];i++;setTimeout(typing,80)}}
+typing();
+
+/* Scroll Reveal */
+const reveals=document.querySelectorAll('.reveal');
+window.addEventListener('scroll',()=>{
+reveals.forEach(r=>{if(r.getBoundingClientRect().top<window.innerHeight-100)r.classList.add('active')})
+});
+
+/* Counter */
+const counters=document.querySelectorAll('.counter');
+counters.forEach(c=>{
+const update=()=>{
+const target=+c.dataset.target;
+const count=+c.innerText;
+const inc=target/100;
+if(count<target){c.innerText=Math.ceil(count+inc);setTimeout(update,30)}
+}
+update();
+});
+
+/* Review Slider */
+let r=0;
+setInterval(()=>{
+document.querySelectorAll('.review').forEach(x=>x.classList.remove('active'));
+r=(r+1)%3;
+document.querySelectorAll('.review')[r].classList.add('active');
+},3000);
+
+/* WhatsApp Form */
+function sendWhatsApp(){
+let name=document.getElementById('name').value;
+let phone=document.getElementById('phone').value;
+let msg=document.getElementById('msg').value;
+let url=`https://wa.me/917880359817?text=Name:${name}%0APhone:${phone}%0AWork:${msg}`;
+window.open(url,'_blank');
+}
+
+</script>
+
+</body>
+</html>
